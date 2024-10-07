@@ -1,17 +1,25 @@
+
+
+
 <?php
-// Database configuration
-$host = 'localhost';       // Server where the MySQL database is hosted
-$dbname = 'smart_irrigation'; // Database name
-$username = 'root';        // Database username
-$password = '';            // Database password (leave blank if no password)
+	try {
 
-// Create connection
-$conn = new mysqli($host, $username, $password, $dbname);
+    // Check if the server is running on localhost
+    if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === '192.168.1.72') {
+        // Localhost connection
+        $pdoConnect = new PDO("mysql:host=localhost;dbname=smart_irrigation", "root", "");
+    } else {
+        // Live server connection
+		$pdoConnect = new PDO("mysql:host=localhost;dbname=u297724503_mawacatv2", "u297724503_mawacatv2", "YFdmoYL|R7o");
+    }
+		$pdoConnect->setAttribute(PDO:: ATTR_ERRMODE, PDO:: ERRMODE_EXCEPTION);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
-    // echo "Connected successfully"; // Uncomment this line if you want to confirm the connection
-}
+	}
+	catch (PDOException $exc){
+		echo $exc -> getMessage();
+	}
+    catch (PDOException $exc){
+        echo $exc -> getMessage();
+    exit();
+    }
 ?>
