@@ -156,36 +156,81 @@ include_once 'header.php';
 	<script src="../../src/js/gauge.js"></script>
 
 	<script>
-		// Fetch data every 2 seconds
-		function fetchData() {
-			var xhr = new XMLHttpRequest();
+function fetchData() {
+    var xhr = new XMLHttpRequest();
 
-			// Monitor when request state changes
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-					var data = JSON.parse(xhr.responseText);
+    // Monitor when request state changes
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
 
-					// Update the HTML elements with the fetched data
-					document.getElementById('wifiStatus').textContent = data.wifi_status;
-					document.getElementById('pumpStatus').textContent = data.pumpStatus;
-					document.getElementById('valve1Status').textContent = data.valve1Status;
-					document.getElementById('valve2Status').textContent = data.valve2Status;
-					document.getElementById('soilMoisture1').textContent = data.soilMoisture1;
-					document.getElementById('soilMoisture2').textContent = data.soilMoisture2;
-					document.getElementById('waterStatus').textContent = data.waterStatus;
-				}
-			};
+                // Update the HTML elements with the fetched data
+                const wifiStatusElement = document.getElementById('wifiStatus');
+                if (wifiStatusElement) {
+                    wifiStatusElement.textContent = data.wifi_status;
+                } else {
+                    console.error("Element 'wifiStatus' not found.");
+                }
 
-			// Prepare the POST request with optional data (if needed)
-			var postData = JSON.stringify({}); // You can pass data here if needed
-			xhr.open('POST', 'controller/receive_data.php', true);
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(postData); // Send the request with postData
-		}
+                const pumpStatusElement = document.getElementById('pumpStatus');
+                if (pumpStatusElement) {
+                    pumpStatusElement.textContent = data.pumpStatus;
+                } else {
+                    console.error("Element 'pumpStatus' not found.");
+                }
 
-		// Fetch data every 2 seconds
-		setInterval(fetchData, 2000);
-		fetchData(); // Initial fetch
+                const valve1StatusElement = document.getElementById('valve1Status');
+                if (valve1StatusElement) {
+                    valve1StatusElement.textContent = data.valve1Status;
+                } else {
+                    console.error("Element 'valve1Status' not found.");
+                }
+
+                const valve2StatusElement = document.getElementById('valve2Status');
+                if (valve2StatusElement) {
+                    valve2StatusElement.textContent = data.valve2Status;
+                } else {
+                    console.error("Element 'valve2Status' not found.");
+                }
+
+                const soilMoisture1Element = document.getElementById('soilMoisture1');
+                if (soilMoisture1Element) {
+                    soilMoisture1Element.textContent = data.soilMoisture1;
+                } else {
+                    console.error("Element 'soilMoisture1' not found.");
+                }
+
+                const soilMoisture2Element = document.getElementById('soilMoisture2');
+                if (soilMoisture2Element) {
+                    soilMoisture2Element.textContent = data.soilMoisture2;
+                } else {
+                    console.error("Element 'soilMoisture2' not found.");
+                }
+
+                const waterStatusElement = document.getElementById('waterStatus');
+                if (waterStatusElement) {
+                    waterStatusElement.textContent = data.waterStatus;
+                } else {
+                    console.error("Element 'waterStatus' not found.");
+                }
+            } else {
+                console.error("Failed to fetch data. Status: " + xhr.status);
+            }
+        }
+    };
+
+    // Prepare the POST request with optional data (if needed)
+    var postData = JSON.stringify({});
+    xhr.open('POST', 'controller/receive_data.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(postData);
+}
+
+// Fetch data every 2 seconds
+setInterval(fetchData, 2000);
+fetchData(); // Initial fetch
+
 	</script>
 </body>
 
