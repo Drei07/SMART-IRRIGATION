@@ -10,7 +10,7 @@ static $lastKnownStatus = [
     'valve1' => 'CLOSED',
     'valve2' => 'CLOSED',
     'pump' => 'OFF',
-    'water' => 'WATER LEVEL IS NORMAL', // Set default status
+    'water' => 'WATER LEVEL IS LOW', // Set default status
 ];
 
 // Fetch data from the proxy server
@@ -24,7 +24,7 @@ if ($response !== false) {
         $currentValve1Status = $data['valve1Status'] ?? 'CLOSED';
         $currentValve2Status = $data['valve2Status'] ?? 'CLOSED';
         $currentPumpStatus = $data['pumpStatus'] ?? 'OFF';
-        $currentWaterStatus = $data['waterStatus'] ?? 'WATER LEVEL IS NORMAL';
+        $currentWaterStatus = $data['waterStatus'] ?? 'WATER LEVEL IS LOW';
 
         // Check for changes and log them
         logStatusChange($pdo, 'valve1', $currentValve1Status);
