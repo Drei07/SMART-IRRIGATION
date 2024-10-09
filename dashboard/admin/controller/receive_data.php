@@ -27,9 +27,9 @@ if ($response !== false) {
         $currentWaterStatus = $data['waterStatus'] ?? 'WATER LEVEL IS LOW';
 
         // Check for changes and log them
-        logStatusChange($pdo, 'valve1', $currentValve1Status);
-        logStatusChange($pdo, 'valve2', $currentValve2Status);
-        logStatusChange($pdo, 'pump', $currentPumpStatus);
+        logStatusChange($pdo, 'Valve 1', $currentValve1Status);
+        logStatusChange($pdo, 'Valve 2', $currentValve2Status);
+        logStatusChange($pdo, 'Water', $currentPumpStatus);
         logStatusChange($pdo, 'water', $currentWaterStatus);
 
         // Return the fetched data as JSON response
@@ -64,32 +64,4 @@ if ($response !== false) {
     error_log("Failed to fetch data from proxy server.");
 }
 
-/**
- * Log the status change for a given sensor.
- *
- * @param PDO $pdo The PDO instance for database access.
- * @param string $sensor The sensor name.
- * @param string $currentStatus The current status of the sensor.
- */
-function logStatusChange($pdo, $sensor, $currentStatus) {
-    global $lastKnownStatus; // Access the static array
-    
-    // Check if the current status is different from the last known status
-    if ($currentStatus !== $lastKnownStatus[$sensor]) {
-        // Prepare SQL insert for logs
-        $logStmt = $pdo->prepare("
-            INSERT INTO sensor_logs (sensor, status, created_at)
-            VALUES (:sensor, :status, NOW())
-        ");
-
-        // Bind parameters and execute the log query
-        $logStmt->execute([
-            ':sensor' => ucfirst($sensor), // Capitalize the sensor name
-            ':status' => $currentStatus,
-        ]);
-
-        // Update the last known status
-        $lastKnownStatus[$sensor] = $currentStatus; // Update the status
-    }
-}
 ?>
