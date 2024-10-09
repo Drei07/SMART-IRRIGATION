@@ -1,16 +1,21 @@
 <?php
 include_once '../../../config/settings-configuration.php';
 include_once __DIR__ . '/../../../database/dbconfig.php';
+require_once '../authentication/admin-class.php';
+
 
 class ProfileSettings
 {
     private $conn;
+    private $admin;
 
     public function __construct()
     {
         $database = new Database();
         $db = $database->dbConnection();
         $this->conn = $db;
+        $this->admin = new ADMIN();
+
     }
     // Update user profile
     public function updateProfile($user_id, $first_name, $middle_name, $last_name, $sex, $date_of_birth, $age, $civil_status)
@@ -72,6 +77,11 @@ class ProfileSettings
 
         // Set status message based on success or failure of the database update
         if ($exec) {
+            // Log activity
+            $activity = "Profile information is updated";
+            $user_id = $_SESSION['adminSession'];
+            $this->admin->logs($activity, $user_id);
+
             // Update successful
             $_SESSION['status_title'] = 'Success!';
             $_SESSION['status'] = 'Profile successfully updated';
@@ -103,6 +113,11 @@ class ProfileSettings
         ));
 
         if ($exec && move_uploaded_file($_FILES['avatar']['tmp_name'], $folder)) {
+
+            $activity = "Avatar is updated";
+            $user_id = $_SESSION['adminSession'];
+            $this->admin->logs($activity, $user_id);
+
             $_SESSION['status_title'] = 'Success!';
             $_SESSION['status'] = 'Avatar successfully updated';
             $_SESSION['status_code'] = 'success';
@@ -140,6 +155,10 @@ class ProfileSettings
                 ));
 
                 if ($exec) {
+                    $activity = "Password has been update";
+                    $user_id = $_SESSION['adminSession'];
+                    $this->admin->logs($activity, $user_id);
+        
                     $_SESSION['status_title'] = 'Success!';
                     $_SESSION['status'] = 'Password successfully changed';
                     $_SESSION['status_code'] = 'success';
@@ -177,6 +196,10 @@ class ProfileSettings
         ));
 
         if ($exec) {
+            $activity = "Avatar updated to default";
+            $user_id = $_SESSION['adminSession'];
+            $this->admin->logs($activity, $user_id);
+
             $_SESSION['status_title'] = 'Success!';
             $_SESSION['status'] = 'Avatar successfully updated to default';
             $_SESSION['status_code'] = 'success';

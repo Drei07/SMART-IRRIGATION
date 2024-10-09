@@ -1915,6 +1915,7 @@ border-right-color: var(--main);
 	font-family: 'Antonio';
 	font-size: 30px;
 	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 .gauge_dashboard .status .arduino .sensor-data{
@@ -1922,6 +1923,11 @@ border-right-color: var(--main);
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
+}
+
+.gauge_dashboard .status .arduino .sensor-data span{
+	font-size: 20px;
+
 }
 
 .gauge_dashboard .status .arduino .status-item  {

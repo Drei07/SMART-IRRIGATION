@@ -173,7 +173,7 @@ public function mainUrl(){
   unset($_SESSION['adminSession']);
 
   $_SESSION['status_title'] = 'Logout!';
-  $_SESSION['status'] = 'Thank you for using Aqua Sense';
+  $_SESSION['status'] = 'Thank you for using Plant Support';
   $_SESSION['status_code'] = 'success';
   $_SESSION['status_timer'] = 40000;    
   header('Location: ../../../');

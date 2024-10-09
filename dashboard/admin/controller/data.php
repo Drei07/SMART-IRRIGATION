@@ -23,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($dataAge > $timeoutDuration) {
             echo json_encode([
                 'wifi_status' => 'NO DEVICE FOUND',
-                'pumpStatus' => 'OFF',
-                'valve1Status' => 'CLOSED',
-                'valve2Status' => 'CLOSED',
+                'pumpStatus' => 'NOT CONNECTED',
+                'valve1Status' => 'NOT CONNECTED',
+                'valve2Status' => 'NOT CONNECTED',
                 'soilMoisture1' => 0,
                 'soilMoisture2' => 0,
-                'waterStatus' => 'NO WATER' // Water status when timeout occurs
+                'waterStatus' => 'NOT CONNECTED' // Water status when timeout occurs
             ]);
         } else {
             header('Content-Type: application/json');
@@ -37,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo json_encode([
             'wifi_status' => 'NO DEVICE FOUND',
-            'pumpStatus' => 'OFF',
-            'valve1Status' => 'CLOSED',
-            'valve2Status' => 'CLOSED',
+            'pumpStatus' => 'NOT CONNECTED',
+            'valve1Status' => 'NOT CONNECTED',
+            'valve2Status' => 'NOT CONNECTED',
             'soilMoisture1' => 0,
             'soilMoisture2' => 0,
-            'waterStatus' => 'NO WATER' // Default water status
+            'waterStatus' => 'NOT CONNECTED' // Default water status
         ]);
     }
 }

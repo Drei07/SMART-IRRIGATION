@@ -25,8 +25,8 @@ class SideBar
         return '
         <section id="sidebar">
             <a href="" class="brand">
-                <span class="text">PLANT SUPPORT<br>
-                    <p>SMART IRRIGATION</p>
+                <span class="text">PlantSupport<br>
+                    <p>SmartIrrigation</p>
                 </span>
             </a>
             <ul class="side-menu top">
@@ -38,10 +38,16 @@ class SideBar
                 </li>
                 <li class="' . $this->isActive('thresholds') . '">
                     <a href="thresholds">
-                        <i class="bx bxs-leaf"></i>
+                        <i class="bx bxs-tachometer"></i>
                         <span class="text">Thresholds</span>
                     </a>
                 </li>
+                <li class="' . $this->isActive('reports') . '">
+                <a href="reports">
+                    <i class="bx bxs-report"></i>
+                    <span class="text">Reports</span>
+                </a>
+            </li>
             </ul>
             <ul class="side-menu top">
                 <li class="' . $this->isActive('settings') . '">

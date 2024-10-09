@@ -42,14 +42,14 @@ include_once 'header.php';
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Threasholds</h1>
+					<h1>Thresholds</h1>
 					<ul class="breadcrumb">
 						<li>
 							<a class="active" href="./">Home</a>
 						</li>
 						<li>|</li>
 						<li>
-							<a href="">Threasholds</a>
+							<a href="">Thresholds</a>
 						</li>
 					</ul>
 				</div>
@@ -58,79 +58,153 @@ include_once 'header.php';
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3><i class='bx bxs-cog' ></i> Configuration of Threasholds</h3>
+						<h3><i class='bx bxs-cog'></i> Configuration of Thresholds</h3>
 					</div>
-                    <!-- BODY -->
+					<!-- BODY -->
 					<section class="data-form">
 						<div class="header"></div>
 						<div class="registration">
-							<form action="controller/waterQuality-controller.php" method="POST" class="row gx-5 needs-validation" name="form" onsubmit="return validate()"  novalidate style="overflow: hidden;">
+							<form action="controller/sensor-controller.php" method="POST" class="row gx-5 needs-validation" name="form" onsubmit="return validate()" novalidate style="overflow: hidden;">
 								<div class="row gx-5 needs-validation">
 
-									<label class="form-label" style="text-align: left; padding-top: .5rem; padding-bottom: 2rem; font-size: 1rem; font-weight: bold;"><i class='bx bxs-cog'></i> pH Parameter Configuration</label>
-									<input type="hidden" name="id" value="1">
+									<label class="form-label" style="text-align: left; padding-top: .5rem; padding-bottom: 2rem; font-size: 1rem; font-weight: bold;"><i class='bx bxs-cog'></i> Sensor 1 Configuration</label>
+									<input type="hidden" name="sensorId" value="1">
+
 									<div class="col-md-6">
-										<label for="ph_low" class="form-label">Low<span> *</span></label>
-										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="low" id="ph_low" value="<?php echo $phLow ?>" required>
+										<label for="mode" class="form-label">Mode<span> *</span></label>
+										<select class="form-select form-control" name="mode" maxlength="6" autocomplete="off" id="mode" required>
+											<option selected value="<?php echo $sensor1Mode ?>"><?php echo $sensor1Mode ?></option>
+											<option value="AUTOMATIC">AUTOMATIC</option>
+											<option value="SCHEDULE ">SCHEDULE</option>
+										</select>
 										<div class="invalid-feedback">
-										Please provide a Low Value.
+											Please select Mode.
 										</div>
 									</div>
 
 									<div class="col-md-6">
-										<label for="ph_high" class="form-label">High<span> *</span></label>
-										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="high" id="ph_high"  value="<?php echo $phHigh ?>" required>
+										<label for="plant_name" class="form-label">Plant Name<span> *</span></label>
+										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="plant_name" id="plant_name" value="<?php echo $sensor1PlantName ?>" required>
 										<div class="invalid-feedback">
-										Please provide a High Value.
+											Please provide a Plant Name.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="dry_threshold" class="form-label">Dry Threshold<span> (for automatic mode)*</span></label>
+										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="dry_threshold" id="dry_threshold" value="<?php echo $sensor1Dry ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Dry Threshold.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="watered_threshold" class="form-label">Watered Threshold<span> (for automatic mode)*</span></label>
+										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="watered_threshold" id="watered_threshold" value="<?php echo $sensor1Watered ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Watered Threshold.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="start_date" class="form-label">Start Date<span> (for scheduled mode)*</span></label>
+										<input type="datetime-local" class="form-control" name="start_date" id="start_date" value="<?php echo $sensor1StartDate ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Start Date for scheduled mode.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="end_date" class="form-label">Stop Date<span> (for scheduled mode)*</span></label>
+										<input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?php echo $sensor1EndDate ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Stop Date for scheduled mode.
 										</div>
 									</div>
 
 								</div>
 
 								<div class="addBtn">
-									<button type="submit" class="btn-dark" name="btn-update-parameter" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
+									<button type="submit" class="btn-dark" name="btn-update-thresholds" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
 								</div>
 							</form>
 						</div>
 					</section>
-					
+
 					<!-- System Logo  -->
 
 					<section class="data-form">
 						<div class="header"></div>
 						<div class="registration">
-							<form action="controller/waterQuality-controller.php" method="POST" enctype="multipart/form-data" class="row gx-5 needs-validation" name="form" onsubmit="return validate()"  novalidate style="overflow: hidden;">
+							<form action="controller/sensor-controller.php" method="POST" enctype="multipart/form-data" class="row gx-5 needs-validation" name="form" onsubmit="return validate()" novalidate style="overflow: hidden;">
 								<div class="row gx-5 needs-validation">
 
-								<label class="form-label" style="text-align: left; padding-top: .5rem; padding-bottom: 2rem; font-size: 1rem; font-weight: bold;"><i class='bx bxs-cog'></i> TDS Parameters Configuration</label>
-								<input type="hidden" name="id" value="2">
-								<div class="col-md-6">
-									<label for="tds_low" class="form-label">Low<span> *</span></label>
-									<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="low" id="tds_low"  value="<?php echo $tdsLow ?>" required>
-									<div class="invalid-feedback">
-									Please provide a Low Value.
-									</div>
-								</div>
+									<label class="form-label" style="text-align: left; padding-top: .5rem; padding-bottom: 2rem; font-size: 1rem; font-weight: bold;"><i class='bx bxs-cog'></i> Sensor 2 Configuration</label>
+									<input type="hidden" name="sensorId" value="2">
 
-								<div class="col-md-6">
-									<label for="tds_high" class="form-label">High<span> *</span></label>
-									<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="high" id="tds_high"  value="<?php echo $tdsHigh ?>" required>
-									<div class="invalid-feedback">
-									Please provide a High Value.
+									<div class="col-md-6">
+										<label for="mode" class="form-label">Mode<span> *</span></label>
+										<select class="form-select form-control" name="mode" maxlength="6" autocomplete="off" id="mode" required>
+											<option selected value="<?php echo $sensor2Mode ?>"><?php echo $sensor2Mode ?></option>
+											<option value="AUTOMATIC">AUTOMATIC</option>
+											<option value="SCHEDULE ">SCHEDULE</option>
+										</select>
+										<div class="invalid-feedback">
+											Please select Mode.
+										</div>
 									</div>
-								</div>
+
+									<div class="col-md-6">
+										<label for="plant_name" class="form-label">Plant Name<span> *</span></label>
+										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="plant_name" id="plant_name" value="<?php echo $sensor2PlantName ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Plant Name.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="dry_threshold" class="form-label">Dry Threshold<span> (for automatic mode)*</span></label>
+										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="dry_threshold" id="dry_threshold" value="<?php echo $sensor2Dry ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Dry Threshold.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="watered_threshold" class="form-label">Watered Threshold<span> (for automatic mode)*</span></label>
+										<input type="text" class="form-control" autocapitalize="on" autocomplete="off" name="watered_threshold" id="watered_threshold" value="<?php echo $sensor2Watered ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Watered Threshold.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="start_date" class="form-label">Start Date<span> (for scheduled mode)*</span></label>
+										<input type="datetime-local" class="form-control" name="start_date" id="start_date" value="<?php echo $sensor2StartDate ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Start Date for scheduled mode.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="end_date" class="form-label">Stop Date<span> (for scheduled mode)*</span></label>
+										<input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?php echo $sensor2EndDate ?>" required>
+										<div class="invalid-feedback">
+											Please provide a Stop Date for scheduled mode.
+										</div>
+									</div>
 
 								</div>
 
 								<div class="addBtn">
-									<button type="submit" class="btn-dark" name="btn-update-parameter" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
+									<button type="submit" class="btn-dark" name="btn-update-thresholds" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
 								</div>
 							</form>
 						</div>
 					</section>
 				</div>
 			</div>
-				</div>
+			</div>
 			</div>
 		</main>
 		<!-- MAIN -->

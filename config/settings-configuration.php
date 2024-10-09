@@ -139,8 +139,13 @@ class MainUrl {
     private $url;
 
     public function __construct() {
-        $this->url = "http://localhost/VAPE-INVENTORY-MANAGEMENT-SYSTEM"; // localhost
-        // $this->url = "https://"; // webhost
+
+        if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === '192.168.1.72') {
+            $this->url = "http://localhost/SMART-IRRIGATION"; // localhost
+        }else{
+            $this->url = "https://servify.cloud"; // webhost
+
+        }
     }
 
     public function getUrl() {

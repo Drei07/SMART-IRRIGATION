@@ -38,4 +38,26 @@ $user_phone_number      = $user_data['phone_number'];
 $user_email             = $user_data['email'];
 $user_last_update       = $user_data['updated_at'];
 
-//retrieve product items
+// Retrieve sensor data
+$stmt = $user->runQuery("SELECT * FROM sensors");
+$stmt->execute();
+$sensorData = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch all rows
+
+// Loop through the result set to assign data for sensors
+foreach ($sensorData as $sensor) {
+    if($sensor['sensor_id'] == 1) {
+        $sensor1Mode = $sensor['mode'];
+        $sensor1PlantName = $sensor['plant_name'];
+        $sensor1Dry = $sensor['dry_threshold'];
+        $sensor1Watered = $sensor['watered_threshold'];
+        $sensor1StartDate = $sensor['start_date'];
+        $sensor1EndDate = $sensor['end_date'];
+    } else if ($sensor['sensor_id'] == 2) {
+        $sensor2Mode = $sensor['mode'];
+        $sensor2PlantName = $sensor['plant_name'];
+        $sensor2Dry = $sensor['dry_threshold'];
+        $sensor2Watered = $sensor['watered_threshold'];
+        $sensor2StartDate = $sensor['start_date'];
+        $sensor2EndDate = $sensor['end_date'];
+    }
+}

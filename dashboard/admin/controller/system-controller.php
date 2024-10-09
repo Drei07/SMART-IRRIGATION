@@ -1,14 +1,19 @@
 <?php
 include_once '../../../config/settings-configuration.php';
 include_once __DIR__.'/../../../database/dbconfig.php';
+require_once '../authentication/admin-class.php';
+
 
 class SystemSettings {
     private $conn;
+    private $admin;
+
 
     public function __construct() {
         $database = new Database();
         $db = $database->dbConnection();
         $this->conn = $db;
+        $this->admin = new ADMIN();
     }
     // update system
     public function updateSystem($system_name, $system_phone_number, $system_email, $system_copy_right) {
@@ -35,6 +40,11 @@ class SystemSettings {
             ));
     
             if ($exec) {
+
+                $activity = "System Settings has been updated";
+                $user_id = $_SESSION['adminSession'];
+                $this->admin->logs($activity, $user_id);
+
                 $_SESSION['status_title'] = 'Success!';
                 $_SESSION['status'] = 'System settings successfully updated';
                 $_SESSION['status_code'] = 'success';
@@ -61,6 +71,10 @@ class SystemSettings {
         ));
 
         if ($exec && move_uploaded_file($_FILES['system_logo']['tmp_name'], $folder)) {
+            $activity = "System Logo has been updated";
+            $user_id = $_SESSION['adminSession'];
+            $this->admin->logs($activity, $user_id);
+
             $_SESSION['status_title'] = 'Success!';
             $_SESSION['status'] = 'System logo successfully updated';
             $_SESSION['status_code'] = 'success';
@@ -85,6 +99,10 @@ class SystemSettings {
         ));
 
         if ($exec) {
+            $activity = "Google Recaptcha API has been updated";
+            $user_id = $_SESSION['adminSession'];
+            $this->admin->logs($activity, $user_id);
+
             $_SESSION['status_title'] = 'Success!';
             $_SESSION['status'] = 'Google Recaptcha successfully updated';
             $_SESSION['status_code'] = 'success';
@@ -108,8 +126,12 @@ class SystemSettings {
         ));
 
         if ($exec) {
+            $activity = "System SMTP has been updated";
+            $user_id = $_SESSION['adminSession'];
+            $this->admin->logs($activity, $user_id);
+
             $_SESSION['status_title'] = 'Success!';
-            $_SESSION['status'] = 'System email successfully updated';
+            $_SESSION['status'] = 'System SMTP successfully updated';
             $_SESSION['status_code'] = 'success';
             $_SESSION['status_timer'] = 40000;
         } else {
