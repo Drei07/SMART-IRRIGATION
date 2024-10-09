@@ -36,7 +36,7 @@ if (isset($_POST['btn-signin'])) {
 
         if ($user->login($email, $upass)) {
             $_SESSION['status_title'] = "Hey!";
-            $_SESSION['status'] = "Welcome to Vape";
+            $_SESSION['status'] = "Welcome to Plant Support";
             $_SESSION['status_code'] = "success";
             $_SESSION['status_timer'] = 10000;
             header("Location: ../");
