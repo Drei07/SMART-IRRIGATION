@@ -5,6 +5,14 @@ $database = new Database();
 $pdo = $database->dbConnection();
 $proxyServerUrl = 'https://servify.cloud/dashboard/admin/controller/data.php';
 
+// Static array to store the last known statuses
+static $lastKnownStatus = [
+    'valve1' => 'CLOSED',
+    'valve2' => 'CLOSED',
+    'pump' => 'OFF',
+    'water' => 'WATER LEVEL IS NORMAL', // Set default status
+];
+
 // Fetch data from the proxy server
 $response = file_get_contents($proxyServerUrl);
 if ($response !== false) {
@@ -12,11 +20,17 @@ if ($response !== false) {
     
     // Ensure the data was parsed correctly
     if ($data) {
+        // Get the current status for each sensor
+        $currentValve1Status = $data['valve1Status'] ?? 'CLOSED';
+        $currentValve2Status = $data['valve2Status'] ?? 'CLOSED';
+        $currentPumpStatus = $data['pumpStatus'] ?? 'OFF';
+        $currentWaterStatus = $data['waterStatus'] ?? 'WATER LEVEL IS NORMAL';
+
         // Check for changes and log them
-        logStatusChange($pdo, 'valve1', $data['valve1Status'] ?? 'CLOSED', 'CLOSED');
-        logStatusChange($pdo, 'valve2', $data['valve2Status'] ?? 'CLOSED', 'CLOSED');
-        logStatusChange($pdo, 'pump', $data['pumpStatus'] ?? 'OFF', 'OFF');
-        logStatusChange($pdo, 'water', $data['waterStatus'] ?? 'NO WATER', 'NO WATER');
+        logStatusChange($pdo, 'valve1', $currentValve1Status);
+        logStatusChange($pdo, 'valve2', $currentValve2Status);
+        logStatusChange($pdo, 'pump', $currentPumpStatus);
+        logStatusChange($pdo, 'water', $currentWaterStatus);
 
         // Return the fetched data as JSON response
         header('Content-Type: application/json');
@@ -31,7 +45,7 @@ if ($response !== false) {
             'valve2Status' => 'CLOSED',
             'soilMoisture1' => 0,
             'soilMoisture2' => 0,
-            'waterStatus' => 'NO WATER' // Default water status
+            'waterStatus' => 'WATER LEVEL IS LOW' // Default water status
         ]);
     }
 } else {
@@ -44,15 +58,24 @@ if ($response !== false) {
         'valve2Status' => 'CLOSED',
         'soilMoisture1' => 0,
         'soilMoisture2' => 0,
-        'waterStatus' => 'NO WATER' // Default water status
+        'waterStatus' => 'WATER LEVEL IS LOW' // Default water status
     ]);
 
     error_log("Failed to fetch data from proxy server.");
 }
 
-function logStatusChange($pdo, $sensor, $currentStatus, $previousStatus) {
-    // Check if the current status is different from the previous state
-    if ($currentStatus !== $previousStatus) {
+/**
+ * Log the status change for a given sensor.
+ *
+ * @param PDO $pdo The PDO instance for database access.
+ * @param string $sensor The sensor name.
+ * @param string $currentStatus The current status of the sensor.
+ */
+function logStatusChange($pdo, $sensor, $currentStatus) {
+    global $lastKnownStatus; // Access the static array
+    
+    // Check if the current status is different from the last known status
+    if ($currentStatus !== $lastKnownStatus[$sensor]) {
         // Prepare SQL insert for logs
         $logStmt = $pdo->prepare("
             INSERT INTO sensor_logs (sensor, status, created_at)
@@ -64,6 +87,9 @@ function logStatusChange($pdo, $sensor, $currentStatus, $previousStatus) {
             ':sensor' => ucfirst($sensor), // Capitalize the sensor name
             ':status' => $currentStatus,
         ]);
+
+        // Update the last known status
+        $lastKnownStatus[$sensor] = $currentStatus; // Update the status
     }
 }
 ?>
