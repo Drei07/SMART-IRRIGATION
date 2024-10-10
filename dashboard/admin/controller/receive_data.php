@@ -26,7 +26,7 @@ class SensorLogger
         ];
 
         // Sensors to exclude from logging (e.g., soil moisture sensors)
-        $this->excludedSensors = ['soilMoisture1', 'soilMoisture2', 'timestamp', 'wifi_status'];
+        $this->excludedSensors = ['soilMoisture1', 'soilMoisture2', 'timestamp'];
     }
 
     // Fetch data from proxy server
