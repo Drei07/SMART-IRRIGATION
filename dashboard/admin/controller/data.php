@@ -1,10 +1,7 @@
 <?php
-
-    header("Content-Type: application/json");
-
 // File to store the latest data
 $dataFile = 'latest_data.json';
-$timeoutDuration = 10; // 1 minute timeout duration
+$timeoutDuration = 60; // 1 minute timeout duration
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receive data from ESP32 and save it to the file
