@@ -10,15 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receive data from ESP32 and save it to the file
     $data = file_get_contents('php://input');
     $dataArray = json_decode($data, true);
-    $dataArray['timestamp'] = time(); // Add a timestamp
     file_put_contents($dataFile, json_encode($dataArray, JSON_PRETTY_PRINT)); // Save formatted JSON
     echo 'Data received';
 } else {
     // Serve the latest data
     if (file_exists($dataFile)) {
         $data = json_decode(file_get_contents($dataFile), true);
-        $currentTime = time();
-        $dataAge = $currentTime - $data['timestamp'];
         
         if ($dataAge > $timeoutDuration) {
             echo json_encode([

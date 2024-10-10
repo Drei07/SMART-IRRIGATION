@@ -334,13 +334,14 @@ border-right-color: var(--main);
 }
 #content nav::before {
 	content: '';
-	position: absolute;
-    width: 30px;
-    height: 30px;
-    bottom: -29px;
-    left: -1px;
-	border-radius: 50%;
-	box-shadow: -9px -9px 0 var(--light);
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: -20px;
+    left: 2px;
+    border-radius: 50%;
+	box-shadow: -7px -9px 0 var(--light);
+
 }
 #content nav a {
 	color: var(--dark);

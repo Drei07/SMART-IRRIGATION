@@ -170,6 +170,12 @@ public function mainUrl(){
  
  public function logout()
  {
+  $activity = "Has successfully signed out";
+  $user_id = $_SESSION['adminSession'];
+
+
+  $this->logs($activity,$user_id);
+
   unset($_SESSION['adminSession']);
 
   $_SESSION['status_title'] = 'Logout!';

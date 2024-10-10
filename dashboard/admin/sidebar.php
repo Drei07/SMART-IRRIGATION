@@ -25,8 +25,9 @@ class SideBar
         return '
         <section id="sidebar">
             <a href="" class="brand">
+                <img src="../../src/img/plant-support-icon.png" alt="logo">
                 <span class="text">PlantSupport<br>
-                    <p>SmartIrrigation</p>
+                    <p>Smart Irrigation</p>
                 </span>
             </a>
             <ul class="side-menu top">

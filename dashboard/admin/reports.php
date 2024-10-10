@@ -58,7 +58,7 @@ include_once 'header.php';
 				</div>
 			</div>
 
-            <div class="table-data">
+			<div class="table-data">
 				<div class="order">
 					<div class="head">
 						<h3><i class='bx bxs-report'></i> Smart Irrigation Reports</h3>
@@ -85,6 +85,40 @@ include_once 'header.php';
 
 	<?php echo $footer_dashboard->getFooterDashboard() ?>
 	<?php include_once '../../config/sweetalert.php'; ?>
+
+	<script>
+		//live search---------------------------------------------------------------------------------------//
+		$(document).ready(function() {
+
+			load_data(1);
+
+			function load_data(page, query = '') {
+				$.ajax({
+					url: "tables/sensor-logs-table.php",
+					method: "POST",
+					data: {
+						page: page,
+						query: query
+					},
+					success: function(data) {
+						$('#dynamic_content').html(data);
+					}
+				});
+			}
+
+			$(document).on('click', '.page-link', function() {
+				var page = $(this).data('page_number');
+				var query = $('#search_box').val();
+				load_data(page, query);
+			});
+
+			$('#search_box').keyup(function() {
+				var query = $('#search_box').val();
+				load_data(1, query);
+			});
+
+		});
+	</script>
 </body>
 
 </html>

@@ -46,7 +46,6 @@ body.my-login-page {
 	height: 250px;
 	display: flex;
 	overflow: hidden;
-	border-radius: 50%;
 	margin: 10px auto;
 	position: relative;
 	z-index: 1;
