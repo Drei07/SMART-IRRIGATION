@@ -205,7 +205,7 @@ public function mainUrl(){
   $mail->SetFrom($smtp_email, $system_name);
   $mail->Subject    = $subject;
   $mail->MsgHTML($message);
-  $imagePath = __DIR__ . '/../../../src/img/aqua-sense.svg';
+  $imagePath = __DIR__ . '/../../../src/img/plant-support-logo.png';
   $mail->AddEmbeddedImage($imagePath, 'logo', 'logo.png');
   $mail->Send();
  } 
