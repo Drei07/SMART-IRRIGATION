@@ -25,7 +25,7 @@ ol, ul {
 	--lato: 'Lato', sans-serif;
 
 	--light: #F9F9F9;
-	--main: #000000;
+	--main: #28a745;
 	--light-main: #c59de744;
 	--dark-main:#966abd;
 	--button:#f675c7;
@@ -36,7 +36,7 @@ ol, ul {
 	--grey: #eee;
 	--dark-grey: #AAAAAA;
 	--light-black: rgb(34, 34, 34);
-	--dark: #342E37;
+	--dark: #342E37; 
 	--red: #DB504A;
 	--yellow: #FFCE26;
 	--light-yellow: #FFF2C6;
