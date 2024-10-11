@@ -108,7 +108,7 @@ include_once 'header.php';
 
 									<div class="col-md-6">
 										<label for="start_date" class="form-label">Start Date<span> (for scheduled mode)*</span></label>
-										<input type="datetime-local" class="form-control" name="start_date" id="start_date" value="<?php echo $sensor1StartDate ?>" required>
+										<input type="datetime-local" step="1" class="form-control" name="start_date" id="start_date" value="<?php echo $sensor1StartDate ?>" required>
 										<div class="invalid-feedback">
 											Please provide a Start Date for scheduled mode.
 										</div>
@@ -116,7 +116,7 @@ include_once 'header.php';
 
 									<div class="col-md-6">
 										<label for="end_date" class="form-label">Stop Date<span> (for scheduled mode)*</span></label>
-										<input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?php echo $sensor1EndDate ?>" required>
+										<input type="datetime-local" step="1" class="form-control" name="end_date" id="end_date" value="<?php echo $sensor1EndDate ?>" required>
 										<div class="invalid-feedback">
 											Please provide a Stop Date for scheduled mode.
 										</div>
@@ -180,7 +180,7 @@ include_once 'header.php';
 
 									<div class="col-md-6">
 										<label for="start_date" class="form-label">Start Date<span> (for scheduled mode)*</span></label>
-										<input type="datetime-local" class="form-control" name="start_date" id="start_date" value="<?php echo $sensor2StartDate ?>" required>
+										<input type="datetime-local" step="1" class="form-control" name="start_date" id="start_date" value="<?php echo $sensor2StartDate ?>" required>
 										<div class="invalid-feedback">
 											Please provide a Start Date for scheduled mode.
 										</div>
@@ -188,7 +188,7 @@ include_once 'header.php';
 
 									<div class="col-md-6">
 										<label for="end_date" class="form-label">Stop Date<span> (for scheduled mode)*</span></label>
-										<input type="datetime-local" class="form-control" name="end_date" id="end_date" value="<?php echo $sensor2EndDate ?>" required>
+										<input type="datetime-local" step="1" class="form-control" name="end_date" id="end_date" value="<?php echo $sensor2EndDate ?>" required>
 										<div class="invalid-feedback">
 											Please provide a Stop Date for scheduled mode.
 										</div>
