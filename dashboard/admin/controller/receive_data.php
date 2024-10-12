@@ -22,11 +22,13 @@ class SensorLogger
             'valve2Status' => 'CLOSED',
             'soilMoisture1' => 0,  // Soil moisture sensors excluded from logging
             'soilMoisture2' => 0,  // Soil moisture sensors excluded from logging
+            'humidity' => 0,
+            'temperature' => 0,
             'waterStatus' => 'WATER LEVEL IS LOW!'
         ];
 
         // Sensors to exclude from logging (e.g., soil moisture sensors)
-        $this->excludedSensors = ['soilMoisture1', 'soilMoisture2', 'timestamp'];
+        $this->excludedSensors = ['soilMoisture1', 'soilMoisture2', 'humidity', 'temperature', 'timestamp'];
     }
 
     // Fetch data from proxy server

@@ -110,6 +110,20 @@ include_once 'header.php';
 							</div>
 						</div>
 					</div>
+					<div class="status">
+						<div class="card arduino">
+							<h1>HUMIDITY</h1>
+							<div class="sensor-data">
+								<span id="humidity">Loading...</span>
+							</div>
+						</div>
+						<div class="card arduino">
+							<h1>TEMPERATURE</h1>
+							<div class="sensor-data">
+								<span id="temperature">Loading...</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</ul>
 		</main>
@@ -204,6 +218,21 @@ include_once 'header.php';
 						} else {
 							console.error("Element 'soilMoisture2' not found.");
 						}
+
+						const humidityElement = document.getElementById('humidity');
+						if (humidityElement) {
+							humidityElement.textContent = data.humidity;
+						} else {
+							console.error("Element 'humidity' not found.");
+						}
+
+						const temperatureElemeent = document.getElementById('temperature');
+						if (temperatureElemeent) {
+							temperatureElemeent.textContent = data.temperature;
+						} else {
+							console.error("Element 'temperature' not found.");
+						}
+
 
 						// Update Water status
 						const waterStatusElement = document.getElementById('waterStatus');

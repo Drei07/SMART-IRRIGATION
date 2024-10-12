@@ -33,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'valve2Status' => 'CLOSED',
                 'soilMoisture1' => 0,
                 'soilMoisture2' => 0,
+                'humidity' => 0,
+                'temperature' => 0,
                 'waterStatus' => 'WATER LEVEL IS LOW' // Water status when timeout occurs
             ]);
         } else {
@@ -49,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'valve2Status' => 'CLOSED',
             'soilMoisture1' => 0,
             'soilMoisture2' => 0,
+            'humidity' => 0,
+            'temperature' => 0,
             'waterStatus' => 'WATER LEVEL IS LOW' // Default water status
         ]);
     }
