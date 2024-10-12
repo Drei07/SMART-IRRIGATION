@@ -87,9 +87,12 @@ class SensorLogger
             // Log the change only if the current value is different from the last logged value
             if ($currentValue != $lastLoggedStatus) {
                 // Log the change in the database
-                $stmt = $this->conn->prepare("INSERT INTO sensor_logs (sensor, status) VALUES (:sensor, :status)");
+                $now = date('Y-m-d H:i:s');
+                $stmt = $this->conn->prepare("INSERT INTO sensor_logs (sensor, status, created_at) VALUES (:sensor, :status, :created_at)");
                 $stmt->bindParam(":sensor", $sensor);
                 $stmt->bindParam(":status", $currentValue);
+                $stmt->bindParam(":created_at", $now);
+
                 if ($stmt->execute()) {
                     error_log("Logged change for $sensor: $currentValue");
     

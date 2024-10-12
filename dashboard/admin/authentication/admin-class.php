@@ -186,8 +186,9 @@ public function mainUrl(){
  }
 
  public function logs ($activity, $user_id){
-    $stmt = $this->conn->prepare("INSERT INTO logs (user_id, activity) VALUES (:user_id, :activity)");
-    $stmt->execute(array(":user_id"=>$user_id,":activity"=>$activity));
+    $now = date('Y-m-d H:i:s');
+    $stmt = $this->conn->prepare("INSERT INTO logs (user_id, activity, created_at) VALUES (:user_id, :activity, :created_at)");
+    $stmt->execute(array(":user_id"=>$user_id,":activity"=>$activity, "created_at"=>$now));
  }
  
  function send_mail($email,$message,$subject,$smtp_email,$smtp_password,$system_name)
