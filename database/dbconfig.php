@@ -1,4 +1,3 @@
-
 <?php
 class Database
 {
@@ -32,6 +31,10 @@ class Database
         try {
             $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Set the MySQL session time zone to Asia/Manila
+            $this->conn->exec("SET time_zone = '+08:00'");
+
         } catch (PDOException $exception) {
             echo "Connection error: " . $exception->getMessage();
         }
@@ -40,4 +43,3 @@ class Database
     }
 }
 ?>
-
