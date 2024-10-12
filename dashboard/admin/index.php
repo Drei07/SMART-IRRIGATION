@@ -218,17 +218,16 @@ include_once 'header.php';
 						} else {
 							console.error("Element 'soilMoisture2' not found.");
 						}
-
 						const humidityElement = document.getElementById('humidity');
 						if (humidityElement) {
-							humidityElement.textContent = data.humidity;
+							humidityElement.textContent = `${data.humidity} %`;
 						} else {
 							console.error("Element 'humidity' not found.");
 						}
 
-						const temperatureElemeent = document.getElementById('temperature');
-						if (temperatureElemeent) {
-							temperatureElemeent.textContent = data.temperature;
+						const temperatureElement = document.getElementById('temperature');
+						if (temperatureElement) {
+							temperatureElement.textContent = `${data.temperature} °C`;
 						} else {
 							console.error("Element 'temperature' not found.");
 						}
