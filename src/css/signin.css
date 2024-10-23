@@ -133,3 +133,9 @@ body.my-login-page {
 		padding: 15px;
 	}
 }
+
+.my-login-page .signup{
+	font-size: 11px;
+	text-align: center;
+
+}

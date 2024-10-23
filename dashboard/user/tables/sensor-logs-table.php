@@ -1,12 +1,12 @@
 <table class="table table-bordered table-hover">
 <?php
 
-require_once '../authentication/admin-class.php';
+require_once '../authentication/user-class.php';
 
-$user = new ADMIN();
+$user = new USER();
 if(!$user->isUserLoggedIn())
 {
- $user->redirect('../../../private/admin/');
+ $user->redirect('../../../private/user/');
 }
 
 // Use the runQuery method to prepare and execute queries.

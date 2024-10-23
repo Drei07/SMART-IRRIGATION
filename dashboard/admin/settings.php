@@ -106,7 +106,7 @@ include_once 'header.php';
 								</div>
 
 								<div class="addBtn">
-									<button type="submit" class="btn-dark" name="btn-update-system" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
+									<button type="submit" class="btn-success" name="btn-update-system" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
 								</div>
 							</form>
 						</div>
@@ -138,7 +138,7 @@ include_once 'header.php';
 								</div>
 
 								<div class="addBtn" style="padding-top: 2rem;">
-									<button type="submit" class="btn-dark" name="btn-update-logo" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
+									<button type="submit" class="btn-success" name="btn-update-logo" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
 								</div>
 							</form>
 						</div>
@@ -173,7 +173,7 @@ include_once 'header.php';
 								</div>
 
 								<div class="addBtn">
-									<button type="submit" class="btn-dark" name="btn-update-smtp" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
+									<button type="submit" class="btn-success" name="btn-update-smtp" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
 								</div>
 							</form>
 						</div>
@@ -208,7 +208,7 @@ include_once 'header.php';
 								</div>
 
 								<div class="addBtn">
-									<button type="submit" class="btn-dark" name="btn-update-recaptcha" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
+									<button type="submit" class="btn-success" name="btn-update-recaptcha" id="btn-update" onclick="return IsEmpty(); sexEmpty();">Update</button>
 								</div>
 							</form>
 						</div>

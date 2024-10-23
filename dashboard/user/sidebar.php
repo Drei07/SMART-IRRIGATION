@@ -43,11 +43,6 @@ class SideBar
                         <span class="text">Thresholds</span>
                     </a>
                 </li>
-                <li class="' . $this->isActive('plants') . '">
-                <a href="plants">
-                    <i class="bx bxs-leaf"></i>
-                    <span class="text">Plants</span>
-                </a>
                 <li class="' . $this->isActive('reports') . '">
                 <a href="reports">
                     <i class="bx bxs-report"></i>
@@ -56,12 +51,6 @@ class SideBar
             </li>
             </ul>
             <ul class="side-menu top">
-                <li class="' . $this->isActive('settings') . '">
-                    <a href="settings">
-                        <i class="bx bxs-cog"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                </li>
                 <li class="' . $this->isActive('audit-trail') . '">
                     <a href="audit-trail">
                         <i class="bx bxl-blogger"></i>
@@ -69,7 +58,7 @@ class SideBar
                     </a>
                 </li>
                 <li>
-                    <a href="authentication/admin-signout" class="btn-signout">
+                    <a href="authentication/user-signout" class="btn-signout">
                         <i class="bx bxs-log-out-circle"></i>
                         <span class="text">Signout</span>
                     </a>

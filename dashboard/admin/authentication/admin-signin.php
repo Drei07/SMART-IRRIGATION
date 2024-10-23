@@ -1,14 +1,17 @@
 <?php
 require_once 'admin-class.php';
+require_once __DIR__ . '/../../user/authentication/user-class.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$user = new ADMIN();
-$site_secret_key = $user->siteSecretKey();
+$admin = new ADMIN();
+$user = new USER();
 
-// Redirect if the user is already logged in
-if ($user->isUserLoggedIn() != "") {
-    $user->redirect('');
+$site_secret_key = $admin->siteSecretKey();
+
+if ($admin->isUserLoggedIn() != "" || $user->isUserLoggedIn() != "") {
+    $admin->redirect('');
 }
 
 if (isset($_POST['btn-signin'])) {
@@ -34,21 +37,50 @@ if (isset($_POST['btn-signin'])) {
         $email = trim($_POST['email']);
         $upass = trim($_POST['password']);
 
-        if ($user->login($email, $upass)) {
-            $_SESSION['status_title'] = "Hey!";
-            $_SESSION['status'] = "Welcome to Plant Support";
-            $_SESSION['status_code'] = "success";
-            $_SESSION['status_timer'] = 10000;
-            header("Location: ../");
-            exit;
+        $stmt = $admin->runQuery('SELECT * FROM users WHERE email = :email');
+        $stmt->execute(array(
+            ":email" => $email,
+        ));
+
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 1) {
+            $existingData = $stmt->fetch();
+
+            if ($existingData['user_type'] == 1) {
+                if ($admin->login($email, $upass)) {
+                    $_SESSION['status_title'] = "Hey !";
+                    $_SESSION['status'] = "Welcome back! ";
+                    $_SESSION['status_code'] = "success";
+                    $_SESSION['status_timer'] = 10000;
+                    header("Location: ../");
+                    exit();
+                }
+            } elseif ($existingData['user_type'] == 2) {
+                if ($user->login($email, $upass)) {
+                    $_SESSION['status_title'] = "Hey !";
+                    $_SESSION['status'] = "Welcome back! ";
+                    $_SESSION['status_code'] = "success";
+                    $_SESSION['status_timer'] = 10000;
+                    unset($_SESSION['property_details']);
+                    header("Location: ../../user/");
+                    exit();
+                }
+            } else {
+                $_SESSION['status_titlek'] = "Sorry !";
+                $_SESSION['status'] = "No account found";
+                $_SESSION['status_code'] = "error";
+                $_SESSION['status_timer'] = 10000000;
+                header("Location: ../../../signin");
+                exit();
+            }
         } else {
-            // Handle invalid login attempt
-            $_SESSION['status_title'] = "Error!";
-            $_SESSION['status'] = "Invalid email or password!";
+            $_SESSION['status_title'] = "Sorry !";
+            $_SESSION['status'] = "No account found or your account has been removed!";
             $_SESSION['status_code'] = "error";
-            $_SESSION['status_timer'] = 40000;
-            header("Location: ../../../");
-            exit;
+            $_SESSION['status_timer'] = 10000000;
+            header("Location: ../../../signin");
+            exit();
         }
     } else {
         // Handle invalid reCAPTCHA
@@ -60,4 +92,3 @@ if (isset($_POST['btn-signin'])) {
         exit;
     }
 }
-?>

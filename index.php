@@ -14,7 +14,7 @@ $footer_signin = new FooterSignin();
 <html lang="en">
 <head>
 	<?php echo $header_signin->getHeaderSignin() ?>
-    <title>Admin | Sign In</title>
+    <title>Sign In</title>
 </head>
 <body class="my-login-page">
 	<section class="h-100">
@@ -58,6 +58,7 @@ $footer_signin = new FooterSignin();
 								</div>
 							</form>
 						</div>
+						<h1 class="signup">Don't have an account?<a href="signup"> Click here to sign up!</a></h1>
 					</div>
 					<footer><?php echo $config->getSystemCopyright() ?></footer>
 				</div>

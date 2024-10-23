@@ -1,5 +1,5 @@
 <?php
-require_once 'authentication/admin-class.php';
+require_once 'authentication/user-class.php';
 include_once '../../config/settings-configuration.php';
 include_once '../../config/header.php';
 include_once '../../config/footer.php';
@@ -11,7 +11,7 @@ $sidebar = new SideBar($config, $currentPage);
 $config = new SystemConfig();
 $header_dashboard = new HeaderDashboard($config);
 $footer_dashboard = new FooterDashboard();
-$user = new ADMIN();
+$user = new USER();
 
 if(!$user->isUserLoggedIn())
 {
@@ -20,7 +20,7 @@ if(!$user->isUserLoggedIn())
 
 // retrieve user data
 $stmt = $user->runQuery("SELECT * FROM users WHERE id=:uid");
-$stmt->execute(array(":uid"=>$_SESSION['adminSession']));
+$stmt->execute(array(":uid"=>$_SESSION['userSession']));
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // retrieve profile user and full name

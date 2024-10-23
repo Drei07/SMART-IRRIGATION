@@ -1,16 +1,16 @@
 <?php
 include_once '../../../config/settings-configuration.php';
 include_once __DIR__ . '/../../../database/dbconfig.php';
-require_once '../authentication/admin-class.php';
+require_once '../authentication/user-class.php';
 
 class Sensor
 {
     private $conn;
-    private $admin;
+    private $user;
 
     public function __construct()
     {
-        $this->admin = new ADMIN();
+        $this->user = new USER();
 
 
         $database = new Database();
@@ -21,7 +21,7 @@ class Sensor
 
     public function sensorThresholds($sensorId, $sensorMode, $plant_id, $water_amount,  $start_time_am, $start_time_pm, $selected_days){
 
-        $stmt = $this->admin->runQuery('SELECT * FROM sensors WHERE sensor_id=:sensor_id');
+        $stmt = $this->user->runQuery('SELECT * FROM sensors WHERE sensor_id=:sensor_id');
         $stmt->execute(array(":sensor_id" => $sensorId));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -50,7 +50,7 @@ class Sensor
             exit;
         }
 
-        $stmt = $this->admin->runQuery('UPDATE sensors SET plant_id=:plant_id, mode=:mode, water_amount=:water_amount, start_time_am=:start_time_am, start_time_pm=:start_time_pm, selected_days=:selected_days WHERE sensor_id=:sensor_id');
+        $stmt = $this->user->runQuery('UPDATE sensors SET plant_id=:plant_id, mode=:mode, water_amount=:water_amount, start_time_am=:start_time_am, start_time_pm=:start_time_pm, selected_days=:selected_days WHERE sensor_id=:sensor_id');
         $exec = $stmt->execute(array(
 
             ":sensor_id"            => $sensorId,
