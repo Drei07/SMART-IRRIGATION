@@ -33,10 +33,9 @@ $footer_signin = new FooterSignin();
                             <form action="dashboard/user/authentication/user-signup.php" method="POST" class="my-login-validation" novalidate="">
                                 <!-- recaptcah token --> <input type="hidden" id="g-token" name="g-token">
                                 <!-- csrf token --> <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-
                                 <div class="form-group">
                                     <label for="otp">OTP</label>
-                                    <input id="otp" type="text" class="form-control" name="otp" required autofocus>
+                                    <input id="otp" type="number" inputmode="numeric" autocomplete="one-time-code"  autocapitalize="off" autocorrect="off" placeholder="Enter OTP" tabindex="1" maxlength="6" class="form-control"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="otp" required autofocus>
                                     <div class="invalid-feedback">
                                         OTP is required!
                                     </div>
@@ -65,6 +64,9 @@ $footer_signin = new FooterSignin();
                 document.getElementById("g-token").value = token;
             });
         });
+
+        //numbers only----------------------------------------------------------------------------------------------------->
+
     </script>
     <!-- SWEET ALERT -->
     <?php include_once 'config/sweetalert.php'; ?>

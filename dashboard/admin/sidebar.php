@@ -53,6 +53,11 @@ class SideBar
                     <i class="bx bxs-report"></i>
                     <span class="text">Reports</span>
                 </a>
+                <li class="' . $this->isActive('user-management') . '">
+                <a href="user-management">
+                    <i class="bx bxs-user-account"></i>
+                    <span class="text">User</span>
+                </a>
             </li>
             </ul>
             <ul class="side-menu top">

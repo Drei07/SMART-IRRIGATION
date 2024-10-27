@@ -54,12 +54,13 @@ class Sensor
 
                 // Prepare the modified sensor data
                 $modifiedSensor = [
-                    "id" => $sensor['sensor_id'],
+                    "sensor_id" => $sensor['sensor_id'],
                     "mode" => $sensor['mode'],
                     "plantName" => $plantName,
                     "dryThreshold" => $dryThreshold,
                     "wateredThreshold" => $wateredThreshold,
-                    "waterAmount" => $sensor['water_amount'],
+                    "waterAmountAM" => $sensor['water_amount_am'],
+                    "waterAmountPM" => $sensor['water_amount_pm'],
                     "startTimeAM" => $sensor['start_time_am'],
                     "startTimePM" => $sensor['start_time_pm'],
                     "selectedDays" => $dayNames

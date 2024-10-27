@@ -104,9 +104,9 @@ include_once 'header.php';
 									</div>
 
 									<div class="col-md-6">
-										<label for="water_amount" class="form-label">Water Amount (mm)<span> *</span></label>
-										<select class="form-select form-control" name="water_amount" id="water_amount" required>
-											<option selected value="<?php echo$waterAmount1 ?>"><?php echo$waterAmount1 ?> mL</option>
+										<label for="water_amount_am" class="form-label">Water Amount (mm)<span> (for scheduled mode in AM)*</span></label>
+										<select class="form-select form-control" name="water_amount_am" id="water_amount_am" required>
+											<option selected value="<?php echo$waterAmountAM1 ?>"><?php echo$waterAmountAM1 ?> mL</option>
 											<!-- Generating options from 5 mm to 200 mm in increments of 5 mm -->
 											<?php
 											for ($i = 5; $i <= 200; $i += 5) {
@@ -115,12 +115,12 @@ include_once 'header.php';
 											?>
 										</select>
 										<div class="invalid-feedback">
-											Please select the amount of water.
+											Please select the amount of water for AM schedule.
 										</div>
 									</div>
 
 									<div class="col-md-6">
-										<label for="start_time_am" class="form-label">Select Time for AM <span> (for scheduled mode)*</span></label>
+										<label for="start_time_am" class="form-label">Select Time for AM <span> (for scheduled mode  in AM)*</span></label>
 										<input type="time" step="1" class="form-control" name="start_time_am" id="start_time_am" value="<?php echo $start_time_am1 ?>" required>
 										<div class="invalid-feedback">
 											Please select a time for AM.
@@ -128,7 +128,23 @@ include_once 'header.php';
 									</div>
 
 									<div class="col-md-6">
-										<label for="start_time_pm" class="form-label">Select Time for PM <span> (for scheduled mode)*</span></label>
+										<label for="water_amount_pm" class="form-label">Water Amount (mm)<span> (for scheduled mode in PM)*</span></label>
+										<select class="form-select form-control" name="water_amount_pm" id="water_amount_pm" required>
+											<option selected value="<?php echo$waterAmountPM1 ?>"><?php echo$waterAmountPM1 ?> mL</option>
+											<!-- Generating options from 5 mm to 200 mm in increments of 5 mm -->
+											<?php
+											for ($i = 5; $i <= 200; $i += 5) {
+												echo "<option value='$i'>{$i} mL</option>";
+											}
+											?>
+										</select>
+										<div class="invalid-feedback">
+											Please select the amount of water for PM schedule.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="start_time_pm" class="form-label">Select Time for PM <span> (for scheduled mode  in PM)*</span></label>
 										<input type="time" step="1" class="form-control" name="start_time_pm" id="start_time_pm" value="<?php echo $start_time_pm1 ?>" required>
 										<div class="invalid-feedback">
 											Please select a time for PM.
@@ -211,9 +227,9 @@ include_once 'header.php';
 									</div>
 
 									<div class="col-md-6">
-										<label for="water_amount" class="form-label">Water Amount (mm)<span> *</span></label>
-										<select class="form-select form-control" name="water_amount" id="water_amount" required>
-											<option selected value="<?php echo$waterAmount2 ?>"><?php echo$waterAmount2 ?> mL</option>
+										<label for="water_amount_am" class="form-label">Water Amount (mm)<span> (for scheduled mode in AM)*</span></label>
+										<select class="form-select form-control" name="water_amount_am" id="water_amount_am" required>
+											<option selected value="<?php echo$waterAmountAM2 ?>"><?php echo$waterAmountAM2 ?> mL</option>
 											<!-- Generating options from 5 mm to 200 mm in increments of 5 mm -->
 											<?php
 											for ($i = 5; $i <= 200; $i += 5) {
@@ -222,12 +238,12 @@ include_once 'header.php';
 											?>
 										</select>
 										<div class="invalid-feedback">
-											Please select the amount of water.
+											Please select the amount of water for AM schedule.
 										</div>
 									</div>
 
 									<div class="col-md-6">
-										<label for="start_time_am" class="form-label">Select Time for AM <span> (for scheduled mode)*</span></label>
+										<label for="start_time_am" class="form-label">Select Time for AM <span> (for scheduled mode  in AM)*</span></label>
 										<input type="time" step="1" class="form-control" name="start_time_am" id="start_time_am" value="<?php echo $start_time_am2 ?>" required>
 										<div class="invalid-feedback">
 											Please select a time for AM.
@@ -235,13 +251,28 @@ include_once 'header.php';
 									</div>
 
 									<div class="col-md-6">
-										<label for="start_time_pm" class="form-label">Select Time for PM <span> (for scheduled mode)*</span></label>
+										<label for="water_amount_pm" class="form-label">Water Amount (mm)<span> (for scheduled mode in PM)*</span></label>
+										<select class="form-select form-control" name="water_amount_pm" id="water_amount_pm" required>
+											<option selected value="<?php echo$waterAmountPM2 ?>"><?php echo$waterAmountPM2 ?> mL</option>
+											<!-- Generating options from 5 mm to 200 mm in increments of 5 mm -->
+											<?php
+											for ($i = 5; $i <= 200; $i += 5) {
+												echo "<option value='$i'>{$i} mL</option>";
+											}
+											?>
+										</select>
+										<div class="invalid-feedback">
+											Please select the amount of water for PM schedule.
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<label for="start_time_pm" class="form-label">Select Time for PM <span> (for scheduled mode  in PM)*</span></label>
 										<input type="time" step="1" class="form-control" name="start_time_pm" id="start_time_pm" value="<?php echo $start_time_pm2 ?>" required>
 										<div class="invalid-feedback">
 											Please select a time for PM.
 										</div>
 									</div>
-
 
 									<label for="start_time" class="form-label">Select Day to Water the Plant <span> (for scheduled mode)*</span></label>
 

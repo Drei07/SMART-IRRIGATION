@@ -19,7 +19,7 @@ class Sensor
     }
 
 
-    public function sensorThresholds($sensorId, $sensorMode, $plant_id, $water_amount,  $start_time_am, $start_time_pm, $selected_days){
+    public function sensorThresholds($sensorId, $sensorMode, $plant_id, $water_amount_am, $water_amount_pm,  $start_time_am, $start_time_pm, $selected_days){
 
         $stmt = $this->user->runQuery('SELECT * FROM sensors WHERE sensor_id=:sensor_id');
         $stmt->execute(array(":sensor_id" => $sensorId));
@@ -28,7 +28,8 @@ class Sensor
         if(
             $row["plant_id"] == $plant_id &&
             $row["mode"] == $sensorMode &&
-            $row["water_amount"] == $water_amount &&
+            $row["water_amount_am"] == $water_amount_am &&
+            $row["water_amount_pm"] == $water_amount_pm &&
             $row["start_time_am"] == $start_time_am &&
             $row["start_time_pm"] == $start_time_pm &&
             $row["selected_days"] == $selected_days
@@ -50,13 +51,14 @@ class Sensor
             exit;
         }
 
-        $stmt = $this->user->runQuery('UPDATE sensors SET plant_id=:plant_id, mode=:mode, water_amount=:water_amount, start_time_am=:start_time_am, start_time_pm=:start_time_pm, selected_days=:selected_days WHERE sensor_id=:sensor_id');
+        $stmt = $this->user->runQuery('UPDATE sensors SET plant_id=:plant_id, mode=:mode, water_amount_am=:water_amount_am, water_amount_pm=:water_amount_pm, start_time_am=:start_time_am, start_time_pm=:start_time_pm, selected_days=:selected_days WHERE sensor_id=:sensor_id');
         $exec = $stmt->execute(array(
 
             ":sensor_id"            => $sensorId,
-            ":plant_id"           => $plant_id,
+            ":plant_id"             => $plant_id,
             ":mode"                 => $sensorMode,
-            ":water_amount"         => $water_amount,
+            ":water_amount_am"      => $water_amount_am,
+            ":water_amount_pm"      => $water_amount_pm,
             ":start_time_am"        => $start_time_am,
             ":start_time_pm"        => $start_time_pm,
             ":selected_days"        => $selected_days,
@@ -64,6 +66,11 @@ class Sensor
         
         if ($exec) {
             if($sensorId == 1){
+                // Log activity
+                $activity = "Sensor 1 Thresholds successfully updated";
+                $user_id = $_SESSION['userSession'];
+                $this->user->logs($activity, $user_id);
+
                 $_SESSION['status_title'] = "Success!";
                 $_SESSION['status'] = "Sensor 1 Thresholds successfully updated";
                 $_SESSION['status_code'] = "success";
@@ -74,6 +81,11 @@ class Sensor
                 $_SESSION['status'] = "Sensor 2 Thresholds successfully updated";
                 $_SESSION['status_code'] = "success";
                 $_SESSION['status_timer'] = 40000;
+
+                // Log activity
+                $activity = "Sensor 2 Thresholds successfully updated";
+                $user_id = $_SESSION['userSession'];
+                $this->user->logs($activity, $user_id);
             }
         }
 
@@ -92,7 +104,8 @@ if(isset($_POST['btn-update-thresholds'])){
     $sensorId = trim($_POST['sensorId']);
     $sensorMode = trim($_POST['mode']);
     $plant_id = trim($_POST['plant_name']);
-    $water_amount = trim($_POST['water_amount']);
+    $water_amount_am = trim($_POST['water_amount_am']);
+    $water_amount_pm = trim($_POST['water_amount_pm']);
     $start_time_am = trim($_POST['start_time_am']);
     $start_time_pm = trim($_POST['start_time_pm']);
     //days
@@ -104,7 +117,7 @@ if(isset($_POST['btn-update-thresholds'])){
 
 
     $sensorData = new Sensor();
-    $sensorData->sensorThresholds($sensorId, $sensorMode, $plant_id, $water_amount,  $start_time_am, $start_time_pm, $selected_days);
+    $sensorData->sensorThresholds($sensorId, $sensorMode, $plant_id, $water_amount_am, $water_amount_pm,  $start_time_am, $start_time_pm, $selected_days);
 
 }
 ?>

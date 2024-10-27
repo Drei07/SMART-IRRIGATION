@@ -63,7 +63,8 @@ foreach ($sensorData as $sensor) {
         $all_days1 = $stmt_all_days->fetchAll(PDO::FETCH_ASSOC);
 
         $sensorMode1 = $sensor['mode'];
-        $waterAmount1 = $sensor['water_amount'];
+        $waterAmountAM1 = $sensor['water_amount_am'];
+        $waterAmountPM1 = $sensor['water_amount_pm'];
         $start_time_am1 = $sensor['start_time_am'];
         $start_time_pm1 = $sensor['start_time_pm'];
 
@@ -80,7 +81,8 @@ foreach ($sensorData as $sensor) {
         $all_days2 = $stmt_all_days->fetchAll(PDO::FETCH_ASSOC);
 
         $sensorMode2 = $sensor['mode'];
-        $waterAmount2 = $sensor['water_amount'];
+        $waterAmountAM2 = $sensor['water_amount_am'];
+        $waterAmountPM2 = $sensor['water_amount_pm'];
         $start_time_am2 = $sensor['start_time_am'];
         $start_time_pm2 = $sensor['start_time_pm'];
     }

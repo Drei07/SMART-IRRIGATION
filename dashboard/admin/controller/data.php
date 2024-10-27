@@ -35,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'soilMoisture2' => 0,
                 'humidity' => 0,
                 'temperature' => 0,
-                'waterStatus' => 'WATER LEVEL IS LOW' // Water status when timeout occurs
+                'waterStatus' => 'WATER LEVEL IS LOW', // Water status when timeout occurs
+                'alertMessage1' => '',
+                'alertMessage2' => '',
+                'alertMessageWater' => '',
             ]);
         } else {
             // Data is recent, serve the latest data
@@ -53,7 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'soilMoisture2' => 0,
             'humidity' => 0,
             'temperature' => 0,
-            'waterStatus' => 'WATER LEVEL IS LOW' // Default water status
+            'waterStatus' => 'WATER LEVEL IS LOW', // Default water status
+            'alertMessage1' => '',
+            'alertMessage2' => '',
+            'alertMessageWater' => '',
         ]);
     }
 }

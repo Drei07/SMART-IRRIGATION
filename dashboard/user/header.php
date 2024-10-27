@@ -49,7 +49,7 @@ foreach ($sensorData as $sensor) {
     $stmt_plants = $user->runQuery("SELECT * FROM plants WHERE id=:id");
     $stmt_plants->execute(array(":id" => $sensor['plant_id']));
     $plantData = $stmt_plants->fetch(PDO::FETCH_ASSOC); // Fetch a single row
-
+    
     if ($sensor['sensor_id'] == 1) {
         if ($plantData) {
             $plantId1 = $plantData['id'];
@@ -63,7 +63,8 @@ foreach ($sensorData as $sensor) {
         $all_days1 = $stmt_all_days->fetchAll(PDO::FETCH_ASSOC);
 
         $sensorMode1 = $sensor['mode'];
-        $waterAmount1 = $sensor['water_amount'];
+        $waterAmountAM1 = $sensor['water_amount_am'];
+        $waterAmountPM1 = $sensor['water_amount_pm'];
         $start_time_am1 = $sensor['start_time_am'];
         $start_time_pm1 = $sensor['start_time_pm'];
 
@@ -80,7 +81,8 @@ foreach ($sensorData as $sensor) {
         $all_days2 = $stmt_all_days->fetchAll(PDO::FETCH_ASSOC);
 
         $sensorMode2 = $sensor['mode'];
-        $waterAmount2 = $sensor['water_amount'];
+        $waterAmountAM2 = $sensor['water_amount_am'];
+        $waterAmountPM2 = $sensor['water_amount_pm'];
         $start_time_am2 = $sensor['start_time_am'];
         $start_time_pm2 = $sensor['start_time_pm'];
     }
