@@ -68,8 +68,8 @@ class Sensor
             if($sensorId == 1){
                 // Log activity
                 $activity = "Sensor 1 Thresholds successfully updated";
-                $user_id = $_SESSION['userSession'];
-                $this->user->logs($activity, $user_id);
+                $user_id = $_SESSION['adminSession'];
+                $this->admin->logs($activity, $user_id);
 
                 $_SESSION['status_title'] = "Success!";
                 $_SESSION['status'] = "Sensor 1 Thresholds successfully updated";
@@ -84,8 +84,8 @@ class Sensor
 
                 // Log activity
                 $activity = "Sensor 2 Thresholds successfully updated";
-                $user_id = $_SESSION['userSession'];
-                $this->user->logs($activity, $user_id);
+                $user_id = $_SESSION['adminSession'];
+                $this->admin->logs($activity, $user_id);
             }
         }
 
