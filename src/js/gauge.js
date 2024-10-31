@@ -89,32 +89,25 @@ am5.ready(function () {
     var SoilSensor1animationStartTime = performance.now(); // Timestamp to track animation start time
     var SoilSensor1animationDuration = 1000; // Duration for smooth animation (in milliseconds)
 
-    // Function to update the gauge with animation
+    // Function to update the gauge with smooth animation
     function soilMoisture1Update(level) {
         var parsed = parseFloat(level);
         if (!isNaN(parsed)) {
-            SoilSensor1target = parsed; // Set the new target SoilSensor1 level
+            SoilSensor1target = parsed;
 
-            // Update the gauge smoothly using requestAnimationFrame
             function animate() {
-                var now = performance.now();
-                var progress = (now - SoilSensor1animationStartTime) / SoilSensor1animationDuration;
-
-                // Perform linear interpolation between current and target values
-                var interpolatedValue = SoilSensor1current + (SoilSensor1target - SoilSensor1current) * progress;
-
-                // Update the gauge with the interpolated value
-                // Use Number.toFixed(2) to format with two decimal places
-                SoilSensor1axisDataItem.set("value", Number(interpolatedValue.toFixed(0)));
-
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
+                if (Math.abs(SoilSensor1current - SoilSensor1target) < 0.5) {
+                    SoilSensor1current = SoilSensor1target; // Prevents tiny oscillations
                 } else {
-                    SoilSensor1current = SoilSensor1target;
+                    // Smooth step interpolation
+                    SoilSensor1current += (SoilSensor1target - SoilSensor1current) * 0.1;
+                    SoilSensor1axisDataItem.set("value", Number(SoilSensor1current.toFixed(0)));
+
+                    requestAnimationFrame(animate);
                 }
             }
 
-            animate();
+            requestAnimationFrame(animate);
         } else {
             console.error('Invalid SoilSensor1 level:', level);
         }
@@ -168,9 +161,11 @@ am5.ready(function () {
                     temperatureUpdate(temperature); // Assuming this is a function you've defined elsewhere
                 }
             };
+
+            var postData = JSON.stringify({});
             xhr.open('POST', 'controller/receive_data.php', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({}));
+            xhr.send(postData);
         }
 
         // Initial fetch and setup for periodic updates
@@ -324,33 +319,25 @@ am5.ready(function () {
     var SoilSensor2animationStartTime = performance.now(); // Timestamp to track animation start time
     var SoilSensor2animationDuration = 1000; // Duration for smooth animation (in milliseconds)
 
-    // Function to update the gauge with animation
-    // Function to update the gauge with animation
+    // Function to update the gauge with smooth animation
     function soilMoisture2Update(level) {
         var parsed = parseFloat(level);
         if (!isNaN(parsed)) {
-            SoilSensor2target = parsed; // Set the new target SoilSensor2 level
+            SoilSensor2target = parsed;
 
-            // Update the gauge smoothly using requestAnimationFrame
             function animate() {
-                var now = performance.now();
-                var progress = (now - SoilSensor2animationStartTime) / SoilSensor2animationDuration;
-
-                // Perform linear interpolation between current and target values
-                var interpolatedValue = SoilSensor2current + (SoilSensor2target - SoilSensor2current) * progress;
-
-                // Update the gauge with the interpolated value
-                // Use Number.toFixed(2) to format with two decimal places
-                SoilSensor2axisDataItem.set("value", Number(interpolatedValue.toFixed(0)));
-
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
+                if (Math.abs(SoilSensor2current - SoilSensor2target) < 0.5) {
+                    SoilSensor2current = SoilSensor2target; // Prevents tiny oscillations
                 } else {
-                    SoilSensor2current = SoilSensor2target;
+                    // Smooth step interpolation
+                    SoilSensor2current += (SoilSensor2target - SoilSensor2current) * 0.1;
+                    SoilSensor2axisDataItem.set("value", Number(SoilSensor2current.toFixed(0)));
+
+                    requestAnimationFrame(animate);
                 }
             }
 
-            animate();
+            requestAnimationFrame(animate);
         } else {
             console.error('Invalid SoilSensor2 level:', level);
         }
@@ -498,33 +485,25 @@ am5.ready(function () {
     var humidityanimationStartTime = performance.now(); // Timestamp to track animation start time
     var humidityanimationDuration = 1000; // Duration for smooth animation (in milliseconds)
 
-    // Function to update the gauge with animation
-    // Function to update the gauge with animation
+    // Function to update the gauge with smooth animation
     function humidityUpdate(level) {
         var parsed = parseFloat(level);
         if (!isNaN(parsed)) {
-            humiditytarget = parsed; // Set the new target humidity level
+            humiditytarget = parsed;
 
-            // Update the gauge smoothly using requestAnimationFrame
             function animate() {
-                var now = performance.now();
-                var progress = (now - humidityanimationStartTime) / humidityanimationDuration;
-
-                // Perform linear interpolation between current and target values
-                var interpolatedValue = humiditycurrent + (humiditytarget - humiditycurrent) * progress;
-
-                // Update the gauge with the interpolated value
-                // Use Number.toFixed(2) to format with two decimal places
-                humidityaxisDataItem.set("value", Number(interpolatedValue.toFixed(0)));
-
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
+                if (Math.abs(humiditycurrent - humiditytarget) < 0.5) {
+                    humiditycurrent = humiditytarget; // Prevents tiny oscillations
                 } else {
-                    humiditycurrent = humiditytarget;
+                    // Smooth step interpolation
+                    humiditycurrent += (humiditytarget - humiditycurrent) * 0.1;
+                    humidityaxisDataItem.set("value", Number(humiditycurrent.toFixed(0)));
+
+                    requestAnimationFrame(animate);
                 }
             }
 
-            animate();
+            requestAnimationFrame(animate);
         } else {
             console.error('Invalid humidity level:', level);
         }
@@ -672,37 +651,30 @@ am5.ready(function () {
     var temperatureanimationStartTime = performance.now(); // Timestamp to track animation start time
     var temperatureanimationDuration = 1000; // Duration for smooth animation (in milliseconds)
 
-    // Function to update the gauge with animation
-    // Function to update the gauge with animation
+    // Function to update the gauge with smooth animation
     function temperatureUpdate(level) {
         var parsed = parseFloat(level);
         if (!isNaN(parsed)) {
-            temperaturetarget = parsed; // Set the new target temperature level
+            temperaturetarget = parsed;
 
-            // Update the gauge smoothly using requestAnimationFrame
             function animate() {
-                var now = performance.now();
-                var progress = (now - temperatureanimationStartTime) / temperatureanimationDuration;
-
-                // Perform linear interpolation between current and target values
-                var interpolatedValue = temperaturecurrent + (temperaturetarget - temperaturecurrent) * progress;
-
-                // Update the gauge with the interpolated value
-                // Use Number.toFixed(2) to format with two decimal places
-                temperatureaxisDataItem.set("value", Number(interpolatedValue.toFixed(0)));
-
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
+                if (Math.abs(temperaturecurrent - temperaturetarget) < 0.5) {
+                    temperaturecurrent = temperaturetarget; // Prevents tiny oscillations
                 } else {
-                    temperaturecurrent = temperaturetarget;
+                    // Smooth step interpolation
+                    temperaturecurrent += (temperaturetarget - temperaturecurrent) * 0.1;
+                    temperatureaxisDataItem.set("value", Number(temperaturecurrent.toFixed(0)));
+
+                    requestAnimationFrame(animate);
                 }
             }
 
-            animate();
+            requestAnimationFrame(animate);
         } else {
             console.error('Invalid temperature level:', level);
         }
     }
+
 
     // Create axis ranges bands for temperature sensor (0-100°C)
     var temperaturebandsData = [{
