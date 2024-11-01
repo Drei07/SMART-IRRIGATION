@@ -11,8 +11,7 @@ class Sensor
     public function __construct($db)
     {
         $database = new Database();
-        $db = $database->dbConnection();
-        $this->conn = $db;
+        $this->conn = $database->dbConnection(); // Set the connection correctly
     }
 
     // Method to fetch all sensor data with modified attributes
@@ -30,17 +29,17 @@ class Sensor
 
             $modifiedSensors = [];
             foreach ($sensors as $sensor) {
-                // Fetch plant name, dry threshold, and watered threshold using plant_id
+                // Fetch plant details
                 $plantQuery = 'SELECT plant_name, dry_threshold, watered_threshold FROM plants WHERE id = :plant_id';
                 $stmtPlant = $this->conn->prepare($plantQuery);
                 $stmtPlant->execute([':plant_id' => $sensor['plant_id']]);
                 $plant = $stmtPlant->fetch(PDO::FETCH_ASSOC);
-                
-                $plantName = $plant ? $plant['plant_name'] : 'Unknown';
-                $dryThreshold = isset($plant['dry_threshold']) ? $plant['dry_threshold'] : 'Unknown';
-                $wateredThreshold = isset($plant['watered_threshold']) ? $plant['watered_threshold'] : 'Unknown';
 
-                // Fetch all day names using selected_days
+                $plantName = $plant ? $plant['plant_name'] : 'Unknown';
+                $dryThreshold = $plant['dry_threshold'] ?? 'Unknown';
+                $wateredThreshold = $plant['watered_threshold'] ?? 'Unknown';
+
+                // Fetch day names
                 $selectedDays = explode(',', $sensor['selected_days']);
                 $dayNames = [];
                 if (!empty($selectedDays)) {
@@ -50,6 +49,17 @@ class Sensor
                     $stmtDay->execute($selectedDays);
                     $dayResults = $stmtDay->fetchAll(PDO::FETCH_ASSOC);
                     $dayNames = array_column($dayResults, 'day');
+                }
+
+                // Fetch irrigation status for each sensor
+                $statusQuery = 'SELECT * FROM sensorIrrigatedStatus WHERE id = :id';
+                $sensorIrrigationStatus = [];
+
+                for ($i = 1; $i <= 4; $i++) {
+                    $stmtStatus = $this->conn->prepare($statusQuery);
+                    $stmtStatus->execute([':id' => $i]);
+                    $statusRow = $stmtStatus->fetch(PDO::FETCH_ASSOC);
+                    $sensorIrrigationStatus[] = $statusRow['status'] ; // Default to false if no row is found
                 }
 
                 // Prepare the modified sensor data
@@ -64,8 +74,12 @@ class Sensor
                     "startTimeAM" => $sensor['start_time_am'],
                     "startTimePM" => $sensor['start_time_pm'],
                     "selectedDays" => $dayNames,
-                    "current_day" => date("l"),    // Day name, e.g., "Monday"
-                    "current_time" => date("H:i:s") // Current time, e.g., "14:30:00"
+                    "current_day" => date("l"),    // Current day
+                    "current_time" => date("H:i:s"), // Current time
+                    "sensor1IrrigatedAM" => $sensorIrrigationStatus[0], // sensor 1 AM
+                    "sensor1IrrigatedPM" => $sensorIrrigationStatus[1], // sensor 1 PM
+                    "sensor2IrrigatedAM" => $sensorIrrigationStatus[2], // sensor 2 AM
+                    "sensor2IrrigatedPM" => $sensorIrrigationStatus[3], // sensor 2 PM
                 ];
 
                 // Add to the result array

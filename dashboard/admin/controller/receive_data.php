@@ -20,8 +20,8 @@ class SensorLogger
             'pumpStatus' => 'OFF',
             'valve1Status' => 'CLOSED',
             'valve2Status' => 'CLOSED',
-            'soilMoisture1' => 0,  // Soil moisture sensors excluded from logging
-            'soilMoisture2' => 0,  // Soil moisture sensors excluded from logging
+            'soilMoisture1' => 0,
+            'soilMoisture2' => 0,
             'currentWaterAmount1' => 0,
             'currentWaterAmount2' => 0,
             'humidity' => 0,
@@ -32,11 +32,11 @@ class SensorLogger
             'alertMessageWater' => '',
             'sensor1IrrigatedAM' => '',
             'sensor1IrrigatedPM' => '',
-            'sensor2IrrigatedPM' => '',
+            'sensor2IrrigatedAM' => '',
             'sensor2IrrigatedPM' => '',
         ];
 
-        // Sensors to exclude from logging (e.g., soil moisture sensors)
+        // Sensors to exclude from logging
         $this->excludedSensors = ['pumpStatus', 'valve1Status', 'valve2Status', 'soilMoisture1', 'soilMoisture2', 'currentWaterAmount1', 'currentWaterAmount2', 'humidity', 'temperature', 'timestamp'];
     }
 
@@ -56,7 +56,7 @@ class SensorLogger
         $smtp_password = $user->smtpPassword();
         $system_name = $user->systemName();
         
-        // retrieve user data
+        // Retrieve user data
         $stmt = $user->runQuery("SELECT * FROM users WHERE id=:uid");
         $stmt->execute(array(":uid"=>$_SESSION['adminSession']));
         $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -84,9 +84,9 @@ class SensorLogger
     public function logSensorData($sensorData)
     {
         foreach ($sensorData as $sensor => $currentValue) {
-            // Skip logging for excluded sensors (soil moisture)
+            // Skip logging for excluded sensors
             if (in_array($sensor, $this->excludedSensors)) {
-                continue; // Skip logging for soil moisture sensors but still display
+                continue; // Skip logging for excluded sensors
             }
     
             // Fetch the last logged value from the database for this sensor
@@ -111,6 +111,44 @@ class SensorLogger
                 }
             }
         }
+
+        // Update irrigated status based on the current sensor data
+        $this->updateIrrigatedStatus($sensorData);
+    }
+
+    // Update sensor irrigated status in the database
+    private function updateIrrigatedStatus($sensorData)
+    {
+        // Mapping of sensor names to the corresponding irrigated status identifiers
+        $statusMapping = [
+            'sensor1IrrigatedAM' => 'sensor1IrrigatedAM',
+            'sensor1IrrigatedPM' => 'sensor1IrrigatedPM',
+            'sensor2IrrigatedAM' => 'sensor2IrrigatedAM',
+            'sensor2IrrigatedPM' => 'sensor2IrrigatedPM',
+        ];
+
+        foreach ($statusMapping as $dbColumn => $sensor) {
+            if (isset($sensorData[$sensor])) {
+                // Fetch the current status from the database
+                $stmt = $this->conn->prepare("SELECT status FROM sensorIrrigatedStatus WHERE sensor = :sensor");
+                $stmt->bindParam(":sensor", $dbColumn);
+                $stmt->execute();
+                $currentStatus = $stmt->fetchColumn();
+
+                // Update the irrigated status only if the current value differs
+                if ($sensorData[$sensor] != $currentStatus) {
+                    // Update the irrigated status in the database
+                    $stmt = $this->conn->prepare("UPDATE sensorIrrigatedStatus SET status = :status, created_at = NOW() WHERE sensor = :sensor");
+                    $stmt->bindParam(":sensor", $dbColumn);
+                    $stmt->bindParam(":status", $sensorData[$sensor]);
+                    if ($stmt->execute()) {
+                        error_log("Updated irrigated status for $sensor: " . $sensorData[$sensor]);
+                    } else {
+                        error_log("Failed to update irrigated status for $sensor: " . $stmt->errorInfo()[2]);
+                    }
+                }
+            }
+        }
     }
     
     // Handle the process of fetching and logging sensor data
@@ -125,7 +163,7 @@ class SensorLogger
             // Log sensor data changes
             $this->logSensorData($sensorData);
 
-            // Send the fetched data as a response (including soil moisture sensor data)
+            // Send the fetched data as a response
             echo json_encode($sensorData);
         } else {
             // If data fetching fails, return default values
