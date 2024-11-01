@@ -63,7 +63,9 @@ class Sensor
                     "waterAmountPM" => $sensor['water_amount_pm'],
                     "startTimeAM" => $sensor['start_time_am'],
                     "startTimePM" => $sensor['start_time_pm'],
-                    "selectedDays" => $dayNames
+                    "selectedDays" => $dayNames,
+                    "current_day" => date("l"),    // Day name, e.g., "Monday"
+                    "current_time" => date("H:i:s") // Current time, e.g., "14:30:00"
                 ];
 
                 // Add to the result array
