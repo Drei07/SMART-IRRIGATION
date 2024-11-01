@@ -30,6 +30,10 @@ class SensorLogger
             'alertMessage1' => '',
             'alertMessage2' => '',
             'alertMessageWater' => '',
+            'sensor1IrrigatedAM' => '',
+            'sensor1IrrigatedPM' => '',
+            'sensor2IrrigatedPM' => '',
+            'sensor2IrrigatedPM' => '',
         ];
 
         // Sensors to exclude from logging (e.g., soil moisture sensors)

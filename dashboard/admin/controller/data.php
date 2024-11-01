@@ -41,6 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'alertMessage1' => '',
                 'alertMessage2' => '',
                 'alertMessageWater' => '',
+                'sensor1IrrigatedAM' => '',
+                'sensor1IrrigatedPM' => '',
+                'sensor2IrrigatedPM' => '',
+                'sensor2IrrigatedPM' => '',
+
             ]);
         } else {
             // Data is recent, serve the latest data
@@ -64,6 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'alertMessage1' => '',
             'alertMessage2' => '',
             'alertMessageWater' => '',
+            'sensor1IrrigatedAM' => '',
+            'sensor1IrrigatedPM' => '',
+            'sensor2IrrigatedPM' => '',
+            'sensor2IrrigatedPM' => '',
         ]);
     }
 }
