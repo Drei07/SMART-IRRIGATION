@@ -1,5 +1,7 @@
 <?php
 include_once 'header.php';
+require_once 'fetch.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

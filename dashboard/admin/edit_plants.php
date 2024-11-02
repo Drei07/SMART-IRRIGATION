@@ -1,5 +1,6 @@
 <?php
 include_once 'header.php';
+require_once 'fetch.php';
 
 
 $plant_id = $_GET['id'];

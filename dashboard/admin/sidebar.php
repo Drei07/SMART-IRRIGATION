@@ -2,6 +2,7 @@
 include_once '../../config/settings-configuration.php';
 include_once 'header.php';
 
+
 $config = new SystemConfig();
 
 class SideBar

@@ -87,3 +87,4 @@ foreach ($sensorData as $sensor) {
         $start_time_pm2 = $sensor['start_time_pm'];
     }
 }
+?>

@@ -22,6 +22,8 @@ class SensorLogger
             'valve2Status' => 'CLOSED',
             'soilMoisture1' => 0,  // Soil moisture sensors excluded from logging
             'soilMoisture2' => 0,  // Soil moisture sensors excluded from logging
+            'currentWaterAmount1' => 0,
+            'currentWaterAmount2' => 0,
             'humidity' => 0,
             'temperature' => 0,
             'waterStatus' => 'WATER LEVEL IS LOW!',
@@ -31,7 +33,7 @@ class SensorLogger
         ];
 
         // Sensors to exclude from logging (e.g., soil moisture sensors)
-        $this->excludedSensors = ['pumpStatus', 'valve1Status', 'valve2Status', 'soilMoisture1', 'soilMoisture2', 'humidity', 'temperature', 'timestamp'];
+        $this->excludedSensors = ['pumpStatus', 'valve1Status', 'valve2Status', 'soilMoisture1', 'soilMoisture2', 'currentWaterAmount1', 'currentWaterAmount2', 'humidity', 'temperature', 'timestamp'];
     }
 
     // Fetch data from proxy server
@@ -45,14 +47,14 @@ class SensorLogger
     private function sendEmailNotification($sensor, $currentValue)
     {
         // Assuming you have a method to get SMTP details
-        $user = new USER();
+        $user = new ADMIN();
         $smtp_email = $user->smtpEmail();
         $smtp_password = $user->smtpPassword();
         $system_name = $user->systemName();
         
         // retrieve user data
         $stmt = $user->runQuery("SELECT * FROM users WHERE id=:uid");
-        $stmt->execute(array(":uid"=>$_SESSION['userSession']));
+        $stmt->execute(array(":uid"=>$_SESSION['adminSession']));
         $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $email = $user_data['email'];

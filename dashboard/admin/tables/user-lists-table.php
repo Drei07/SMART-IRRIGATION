@@ -80,12 +80,9 @@ if($total_data > 0)
     while($row = $statement->fetch(PDO::FETCH_ASSOC))
     {
         if ($row["account_status"] == "active") {
-            $button = '<button type="button" class="btn btn-danger V"><a href="controller/agent-controller?agent_id='.$row["id"].'&disabled_agent=1" class="delete"><i class="bx bxs-trash"></i></a></button>';
+            $button = '<button type="button" class="btn btn-danger V"><a href="controller/user-controller?user_id='.$row["id"].'&disabled_user=1" class="delete"><i class="bx bxs-trash"></i></a></button>';
             $status = '<button type="button" class="btn btn-success V" style="width: 80px;">Active</button>';
           
-          } else if ($row["account_status"] == "disabled") {
-            $button = '<button type="button" class="btn btn-warning V"><a href="controller/agent-controller?agent_id='.$row["id"].'&activate_agent=1" class="activate">Activate</a></button>';
-            $status = '<button type="button" class="btn btn-danger V" style="width: 80px;">Disabled</button>';
           }
 
         $output .= '
