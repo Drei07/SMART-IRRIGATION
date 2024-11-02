@@ -62,7 +62,6 @@ require_once 'fetch.php';
 					<div class="head">
 						<h3><i class='bx bxl-blogger'></i> Audit Trail</h3>
 					</div>
-					<button type="button" class="archives btn-success"><i class='bx bxs-export'></i> Export to PDF</a></button><br><br>
 
 					<!-- BODY -->
 					<section class="data-table">
