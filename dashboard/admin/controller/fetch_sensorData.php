@@ -64,6 +64,8 @@ class Sensor
                     "startTimeAM" => $sensor['start_time_am'],
                     "startTimePM" => $sensor['start_time_pm'],
                     "selectedDays" => $dayNames,
+                    "current_day" => date("l"),    // Current day
+                    "current_time" => date("H:i:s"), // Current time
                     
                 ];
 
