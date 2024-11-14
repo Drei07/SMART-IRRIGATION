@@ -52,6 +52,12 @@ class Sensor
                     $dayNames = array_column($dayResults, 'day');
                 }
 
+                $userQuery = 'SELECT * FROM system_config';
+                $stmtUser = $this->conn->prepare($userQuery);
+                $stmtUser->execute(array());
+                $system_config = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+
                 // Prepare the modified sensor data
                 $modifiedSensor = [
                     "sensor_id" => $sensor['sensor_id'],
@@ -66,6 +72,7 @@ class Sensor
                     "selectedDays" => $dayNames,
                     "current_day" => date("l"),    // Current day
                     "current_time" => date("H:i:s"), // Current time
+                    "user_number" => '0' . $system_config['system_phone_number'],
                     
                 ];
 
