@@ -271,7 +271,7 @@ class UserController
             $_SESSION['status'] = 'Successfully Registration';
             $_SESSION['status_code'] = 'success';
             $_SESSION['status_timer'] = 40000;
-            header('Location: ../../../signup');
+            header('Location: ../../../');
             exit;
         }
         else{

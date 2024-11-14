@@ -47,7 +47,7 @@ class SensorLogger
     private function sendEmailNotification($sensor, $currentValue)
     {
         // Assuming you have a method to get SMTP details
-        $user = new ADMIN();
+        $user = new USER();
         $smtp_email = $user->smtpEmail();
         $smtp_password = $user->smtpPassword();
         $system_name = $user->systemName();

@@ -14,7 +14,7 @@ class ProfileSettings
         $database = new Database();
         $db = $database->dbConnection();
         $this->conn = $db;
-        $this->user = new ADMIN();
+        $this->user = new USER();
 
     }
     // Update user profile

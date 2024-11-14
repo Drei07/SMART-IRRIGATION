@@ -22,8 +22,8 @@ if (isset($_POST['btn-forgot-password'])) {
 
     $email = $_POST['email'];
 
-    $stmt = $user->runQuery("SELECT id, tokencode FROM users WHERE email=:email AND user_type = :user_type LIMIT 1");
-    $stmt->execute(array(":email" => $email, "user_type" => 1));
+    $stmt = $user->runQuery("SELECT id, tokencode FROM users WHERE email=:email LIMIT 1");
+    $stmt->execute(array(":email" => $email));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
