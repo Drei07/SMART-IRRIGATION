@@ -8,7 +8,7 @@ require_once 'fetch.php';
 <head>
 	<?php echo $header_dashboard->getHeaderDashboard() ?>
 	<link href='https://fonts.googleapis.com/css?family=Antonio' rel='stylesheet'>
-	<title>Quality Parameter</title>
+	<title>Threshold</title>
 </head>
 
 <body>
