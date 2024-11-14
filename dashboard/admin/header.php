@@ -19,7 +19,7 @@ if(!$user->isUserLoggedIn())
 }
 
 // retrieve user data
-$stmt = $user->runQuery("SELECT * FROM system WHERE id=:uid");
+$stmt = $user->runQuery("SELECT * FROM users WHERE id=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['adminSession']));
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
