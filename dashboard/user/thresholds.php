@@ -233,7 +233,7 @@ require_once 'fetch.php';
 											<option selected value="<?php echo$waterAmountAM2 ?>"><?php echo$waterAmountAM2 ?> mL</option>
 											<!-- Generating options from 5 mm to 200 mm in increments of 5 mm -->
 											<?php
-											for ($i = 5; $i <= 200; $i += 5) {
+											for ($i = 5; $i <= 2000; $i += 5) {
 												echo "<option value='$i'>{$i} mL</option>";
 											}
 											?>
@@ -257,7 +257,7 @@ require_once 'fetch.php';
 											<option selected value="<?php echo$waterAmountPM2 ?>"><?php echo$waterAmountPM2 ?> mL</option>
 											<!-- Generating options from 5 mm to 200 mm in increments of 5 mm -->
 											<?php
-											for ($i = 5; $i <= 200; $i += 5) {
+											for ($i = 5; $i <= 2000; $i += 5) {
 												echo "<option value='$i'>{$i} mL</option>";
 											}
 											?>
