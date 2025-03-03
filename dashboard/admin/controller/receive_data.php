@@ -39,7 +39,7 @@ class SensorLogger
     // Fetch data from proxy server
     public function fetchData()
     {
-        $proxyServerUrl = 'https://servify.cloud/dashboard/admin/controller/data.php'; // Replace with your proxy server URL
+        $proxyServerUrl = 'https://smartirrigation.site/admin/controller/data.php'; // Replace with your proxy server URL
         return file_get_contents($proxyServerUrl);
     }
 
