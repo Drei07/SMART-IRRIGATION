@@ -19,8 +19,8 @@ class Database
         } else {
             // Live server connection
             $this->host = "localhost";
-            $this->db_name = "u297724503_irrigation";
-            $this->username = "u297724503_irrigation";
+            $this->db_name = "u607408406_irrigation";
+            $this->username = "u607408406_irrigation";
             $this->password = "SmartIrrigation2024@";
         }
     }
